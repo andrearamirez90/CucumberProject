@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -32,12 +33,12 @@ public class LoginSteps {
 	    driver.get("https://www.freecrm.com/index.html");
 	    }
 
-	@When("^I enter valid username and password$")
-	public void i_enter_valid_username_and_password() throws Throwable {
-	   driver.findElement(By.name("username")).clear();
-	   driver.findElement(By.name("username")).sendKeys("airmore15");
-	   driver.findElement(By.name("password")).clear();
-	   driver.findElement(By.name("password")).sendKeys("Cecan1991");
+	@When("^I enter valid \"(.*)\" and \"(.*)\"$")
+	public void i_enter_valid_username_and_password(String usrname, String passord )  {
+	   
+	   driver.findElement(By.name("username")).sendKeys(usrname);
+	   
+	   driver.findElement(By.name("password")).sendKeys(passord);
 	   
 		
 	}
@@ -55,6 +56,8 @@ public class LoginSteps {
 	@Then("^I succesfully logged in$")
 	public void i_succesfully_logged_in() throws Throwable {
 		
+		
+		
 		String title = "CRMPRO";
 		driver.getTitle();
 		assertEquals("CRMPRO", title);
@@ -62,11 +65,11 @@ public class LoginSteps {
 	    
 	}
 	
-	@When("^I enter invalid username and password$")
-	public void i_enter_invalid_username_and_password() throws Throwable {
+	@When("^I enter invalid \"(.*)\" and \"(.*)\"$")
+	public void i_enter_invalid_username_and_password(String username, String password)  {
 		
-		driver.findElement(By.name("username")).sendKeys("airmore15");
-		   driver.findElement(By.name("password")).sendKeys("Cecan");
+		driver.findElement(By.name("username")).sendKeys(username);
+		   driver.findElement(By.name("password")).sendKeys(password);
 	}
 
 	@Then("^I see error message$")
@@ -76,6 +79,32 @@ public class LoginSteps {
 		assertEquals("FreeCRM", title);
 		
 		driver.quit();
+		
+
+	}
+	
+	
+	
+	
+	
+	
+	@Then("^User is on home page$")
+	public void user_is_on_home_page()  {
+		
+	    
+	}
+
+	@Then("^user moves to new contact page$")
+	public void user_moves_to_new_contact_page()  {
+		driver.switchTo().frame("mainpanel");
+		Actions act= new Actions (driver);
+		act.moveToElement(driver.findElement(By.xpath("//a[contains(text(),'Contacts')]"))).perform();
+		driver.findElement(By.xpath("//a[contains(text(),'New Contact')]")).click();
+	}
+
+	@Then("^user enter contact details \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
+	public void user_enter_contact_details_and_and(String arg1, String arg2, String arg3) {
+	    
 	}
 
 }

@@ -3,14 +3,20 @@ Feature: Login
 Scenario: Valid Login
 Given I open browser
 And I navigate to the FreeCRM
-When I enter valid username and password 
+When I enter valid "airmore15" and "Cecan1991" 
 And I click login button 
 Then I succesfully logged in
 
 
-Scenario: Invalid Login
+Scenario Outline: Invalid Login
 Given I open browser
 And I navigate to the FreeCRM
-When I enter invalid username and password 
+When I provide invalid "<username>" and "<password>" 
 And I click login button 
 Then I see error message 
+
+
+Examples:
+	| username | password |
+	|	andrea	 | Cecan1991|
+	| tomo     | admin122 | 
