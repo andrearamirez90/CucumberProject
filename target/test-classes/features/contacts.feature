@@ -1,7 +1,8 @@
 Feature: Free CRM Create Contacts
 
-  Scenario Outline: Create Contact Scenario
-Given I open browser
+ Scenario Outline: Create Contact Scenario
+ 
+Given open browser
 And I navigate to the FreeCRM
 When I enter invalid "<username>" and "<password>" 
 Then I click login button 
